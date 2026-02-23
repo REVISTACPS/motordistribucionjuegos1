@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>¡Aprende Inglés Jugando!</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  color: #1e293b;
+  background: 
+    linear-gradient(to bottom, #87ceeb 0%, #cce7ff 100%),
+    url('https://i.ibb.co/vP5VQDK/clouds.png') repeat-x;
+  background-size: cover;
+  overflow-x: hidden;
+}
+
+.header-gold {
+  background: linear-gradient(135deg, #facc15, #fde047, #fbbf24);
+  padding:10px;
+  text-align: center;
+  border-radius: 16px;
+  box-shadow: 0 0 25px rgba(250, 204, 21, 0.7);
+  margin: 20px;
+}
+
+.carousel {
+  display: flex;
+  overflow-x: auto;
+  gap: 15px;
+  padding: 20px;
+}
+
+.game-card {
+  background: #1e293b;
+  border-radius: 12px;
+  width: 300px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+}
+
+.game-card h3 {
+  color: white;
+  font-size: 16px;
+  margin: 10px 0;
+}
+
+iframe {
+  width: 100%;
+  height: 200px;
+  border: none;
+  border-radius: 8px;
+}
+
+.game-card.locked {
+  position: relative;
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.lock-overlay {
+  position: absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background: rgba(250,204,21,0.3);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:40px;
+  border-radius:12px;
+}
+
+.elite-container {
+  text-align:center;
+  margin:40px 20px;
+}
+
+.elite-btn {
+  background:#22c55e;
+  color:white;
+  border:none;
+  padding:12px 28px;
+  border-radius:12px;
+  cursor:pointer;
+}
+
+.elite-card {
+  background:#1e293b;
+  color:white;
+  max-width:400px;
+  margin:20px auto;
+  padding:20px;
+  border-radius:16px;
+  display:none;
+}
+
+.elite-card input {
+  width:80%;
+  padding:8px;
+  margin:10px 0;
+  border-radius:8px;
+  border:none;
+  text-align:center;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header-gold">
+  <h1>¡Aprende Inglés Jugando!</h1>
+  <p>Explora estos juegos interactivos y mejora tu inglés de manera divertida.</p>
+</div>
+
+<section>
+  <h2 style="margin-left:20px;">🎮 Juegos</h2>
+  <div class="carousel" id="carousel"></div>
+</section>
+
+<div class="elite-container">
+  <button class="elite-btn">🔓 DESBLOQUEAR</button>
+
+  <div class="elite-card" id="eliteCard">
+    <h3>🔒 Acceso Premium</h3>
+    <p>Ingresa tu clave:</p>
+    <input type="password" id="eliteKey" placeholder="Clave">
+    <br><br>
+    <button onclick="unlockPremium()">Entrar</button>
+  </div>
+</div>
+
+<script>
+
+/* =========================
+   LISTA FREE
+=========================*/
+const juegosFree = [
+  "https://wordwall.net/es/embed/d9078126bdff4861a335e622b1996df4?themeId=43&templateId=3&fontStackId=0",
+  "https://wordwall.net/es/embed/35e33864fc9b413bb76a06c48b6c9cb6?themeId=1&templateId=3&fontStackId=0" ,
+  "https://wordwall.net/es/embed/c95e9c0711e74ffca4b6279abd561d26?themeId=1&templateId=5&fontStackId=0",
+  "https://wordwall.net/es/embed/b9c432a42009496fa2a5ea64e0549707?themeId=46&templateId=48&fontStackId=0" 
+]
+/*-----------Hay que ponerle coma al siguiente------------*
+
+/
+/* =========================
+   LISTA PREMIUM
+=========================*/
+const juegosPremium = [
+  "https://wordwall.net/es/embed/26b4121366e243d5b1703165c627ceab?themeId=50&templateId=3&fontStackId=0",
+  "https://wordwall.net/es/embed/fa84d1f4029b4644ba2b1f1141e1ca1a?themeId=1&templateId=3&fontStackId=0" ,
+  "https://wordwall.net/es/embed/6e6176f2438d490ba6e47261fe1aaa22?themeId=55&templateId=10&fontStackId=0" 
+
+
+];
+
+const carousel = document.getElementById("carousel");
+
+/* GENERAR FREE */
+juegosFree.forEach((link, index) => {
+  const card = document.createElement("div");
+  card.classList.add("game-card");
+
+  card.innerHTML = `
+    <h3>Juego Free ${index + 1}</h3>
+    <iframe src="${link}" allowfullscreen></iframe>
+  `;
+
+  carousel.appendChild(card);
+});
+
+/* GENERAR PREMIUM BLOQUEADO */
+juegosPremium.forEach((link, index) => {
+  const card = document.createElement("div");
+  card.classList.add("game-card", "locked");
+
+  card.innerHTML = `
+    <h3>Juego Premium ${index + 1}</h3>
+    <iframe data-src="${link}" allowfullscreen></iframe>
+    <div class="lock-overlay">🔒</div>
+  `;
+
+  carousel.appendChild(card);
+});
+
+/* MOSTRAR TARJETA */
+document.querySelector('.elite-btn').addEventListener('click', () => {
+  const card = document.getElementById('eliteCard');
+  card.style.display = card.style.display === 'block' ? 'none' : 'block';
+});
+
+/* DESBLOQUEAR PREMIUM REAL */
+function unlockPremium() {
+  const key = document.getElementById("eliteKey").value;
+
+  if (key === "552455") {
+
+    document.querySelectorAll(".game-card.locked").forEach(card => {
+
+      const iframe = card.querySelector("iframe");
+
+      // Ahora sí carga el juego
+      iframe.src = iframe.dataset.src;
+
+      card.classList.remove("locked");
+      card.querySelector(".lock-overlay").remove();
+      card.style.pointerEvents = "auto";
+      card.style.opacity = "1";
+    });
+
+    alert("¡Premium activado! 🎉");
+
+  } else {
+    alert("Clave incorrecta.");
+  }
+}
+
+</script>
+
+</body>
+</html>
