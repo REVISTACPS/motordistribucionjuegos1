@@ -6,265 +6,396 @@
 <title>¡Aprende Inglés Jugando!</title>
 
 <style>
-body {
-  margin: 0;
+
+/* =========================
+   RESET BÁSICO
+=========================*/
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
   font-family: 'Segoe UI', sans-serif;
-  color: #1e293b;
-  background: 
-    linear-gradient(to bottom, #87ceeb 0%, #cce7ff 100%),
-    url('https://i.ibb.co/vP5VQDK/clouds.png') repeat-x;
-  background-size: cover;
-  overflow-x: hidden;
-}
-
-.header-gold {
-  background: linear-gradient(135deg, #facc15, #fde047, #fbbf24);
-  padding:10px;
-  text-align: center;
-  border-radius: 16px;
-  box-shadow: 0 0 25px rgba(250, 204, 21, 0.7);
-  margin: 20px;
-}
-
-.carousel {
-  display: flex;
-  overflow-x: auto;
-  gap: 15px;
-  padding: 20px;
-}
-
-.carousel-wrapper {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
-.carousel {
-  display: flex;
-  overflow-x: auto;
-  gap: 15px;
-  padding: 20px;
-  scroll-behavior: smooth;
-}
-
-.arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
- background: #8b5cf6; /* Morado llamativo */
-  color: white;
-  border: none;
-  font-size: 32px;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  cursor: pointer;
-  z-index: 10;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-}
-
-.arrow:hover {
-  transform: translateY(-50%) scale(1.1);
-}
-
-.arrow.left {
-  left: 5px;
-}
-
-.arrow.right {
-  right: 5px;
-}
-
-.game-card {
-  background: #1e293b;
-  border-radius: 12px;
-  width: 300px;
-  flex-shrink: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 10px;
-}
-
-.game-card h3 {
-  color: white;
-  font-size: 16px;
-  margin: 10px 0;
-}
-
-iframe {
-  width: 100%;
-  height: 200px;
-  border: none;
-  border-radius: 8px;
-}
-
-.game-card.locked {
-  position: relative;
-  opacity: 0.7;
-  pointer-events: none;
-}
-
-.lock-overlay {
-  position: absolute;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  background: rgba(250,204,21,0.3);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:40px;
-  border-radius:12px;
-}
-
-.elite-container {
-  text-align:center;
-  margin:40px 20px;
-}
-
-.elite-btn {
-  background:#22c55e;
-  color:white;
-  border:none;
-  padding:12px 28px;
-  border-radius:12px;
-  cursor:pointer;
-}
-
-.elite-card {
-  background:#1e293b;
-  color:white;
-  max-width:400px;
-  margin:20px auto;
-  padding:20px;
-  border-radius:16px;
-  display:none;
-}
-
-.elite-card input {
-  width:80%;
-  padding:8px;
-  margin:10px 0;
-  border-radius:8px;
-  border:none;
-  text-align:center;
-}
-
-.game-preview {
-  background:#334155;
-  height:200px;
-  border-radius:8px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-
-.play-btn {
-  background:#22c55e;
-  color:white;
-  border:none;
-  padding:12px 24px;
-  border-radius:10px;
-  cursor:pointer;
-  font-size:16px;
-  transition:0.2s;
-}
-
-.play-btn:hover {
-  transform:scale(1.05);
-}
-
-.locked-btn {
-  background:#64748b;
-  cursor:not-allowed;
+  color:#1e293b;
+  background: linear-gradient(180deg, #dbeafe, #f8fafc);
+  overflow-x:hidden;
 }
 
 /* =========================
-   MODO JUEGO FULLSCREEN
+   HEADER COMPACTO PRO
 =========================*/
+.header-container{
+  position:sticky;
+  top:0;
+  z-index:1000;
 
-#gameMode {
-  position: fixed;
-  inset: 0;
-  background: #000;
-  display: none;
-  flex-direction: column;
-  z-index: 9999;
-  padding: 8px; /* 👈 margen sutil */
-  box-sizing: border-box;
+  background:linear-gradient(135deg,#6d28d9,#4f46e5);
+  padding:18px 20px; /* 🔥 MÁS PEQUEÑO */
+  text-align:center;
+  color:white;
+
+  box-shadow:0 4px 15px rgba(0,0,0,0.15); /* sombra más fina */
 }
 
-.game-bar {
-  height: 55px;
-  background: #111827;
-  color: white;
-  display: flex;
-  align-items: center;
-  padding: 0 16px;
-  justify-content: space-between;
-  flex-shrink: 0;
-  border-radius: 12px 12px 0 0;
+.header-container h1{
+  font-size:clamp(20px,3vw,30px);
+  margin-bottom:6px; /* menos espacio */
+  font-weight:600;
 }
 
-.game-bar button {
-  background: #39FF14;
-  color: #000;
-  border: none;
-  padding: 10px 18px;
-  font-weight: bold;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: 0.3s;
+.header-container p{
+  font-size:14px;
+  opacity:0.85;
+  margin-bottom:12px;
 }
 
-.game-bar button:hover {
-  background: #2ed60f;
-  transform: scale(1.05);
+/* =========================
+   BOTÓN PRINCIPAL PREMIUM
+=========================*/
+.main-btn{
+  background:#39FF14;
+  color:#000;
+  border:none;
+  padding:10px 22px; /* más compacto */
+  border-radius:10px;
+  font-size:14px;
+  font-weight:600;
+  cursor:pointer;
+  transition:all .25s ease;
+  box-shadow:0 0 12px rgba(57,255,20,0.6);
 }
 
-#gameFrame {
-  flex: 1;
-  width: 100%;
-  border: none;
-  border-radius: 0 0 12px 12px;
-  box-shadow: 0 0 15px rgba(0,0,0,0.6);
+.main-btn:hover{
+  background:#ff00ff;
+  color:white;
+  box-shadow:0 0 18px rgba(255,0,255,0.8);
+  transform:scale(1.05);
 }
+
+/* =========================
+   TARJETA CLAVE MÁS LIMPIA
+=========================*/
+.elite-card{
+  display:none;
+  margin-top:15px;
+  padding:18px;
+  background:white;
+  border-radius:14px;
+  max-width:320px;
+  margin-left:auto;
+  margin-right:auto;
+  box-shadow:0 8px 18px rgba(0,0,0,0.12);
+}
+
+.elite-card input{
+  width:100%;
+  padding:8px;
+  border-radius:8px;
+  border:1px solid #e2e8f0;
+  margin:10px 0;
+  text-align:center;
+}
+
+/* =========================
+   SECCIÓN JUEGOS
+=========================*/
+section{
+  padding:40px 20px;
+}
+
+section h2{
+  margin-bottom:25px;
+  font-weight:600;
+}
+
+/* =========================
+   CARRUSEL MÁS LIMPIO
+=========================*/
+.carousel-wrapper{
+  position:relative;
+}
+
+.carousel{
+  display:flex;
+  gap:25px;
+  overflow-x:auto;
+  scroll-behavior:smooth;
+  padding:10px 0 20px 0;
+}
+
+/* Flechas más elegantes */
+.arrow{
+  position:absolute;
+  top:45%;
+  transform:translateY(-50%);
+  background:#4f46e5;
+  color:white;
+  border:none;
+  width:40px;
+  height:40px;
+  border-radius:50%;
+  font-size:18px;
+  cursor:pointer;
+  box-shadow:0 4px 12px rgba(0,0,0,0.15);
+  transition:.2s;
+
+  z-index:10; /* 🔥 ESTO ES LA CLAVE */
+}
+
+.arrow:hover{
+  transform:translateY(-50%) scale(1.1);
+}
+
+.arrow.left{ left:-10px; }
+.arrow.right{ right:-10px; }
+
+/* =========================
+   TARJETAS NIVEL 9.5
+=========================*/
+.game-card{
+  min-width:240px;
+  background:white;
+  border-radius:16px;
+  padding:18px;
+  text-align:center;
+  box-shadow:0 6px 18px rgba(0,0,0,0.08); /* sombra suave */
+  transition:all .25s ease;
+}
+
+.game-card:hover{
+  transform:translateY(-6px);
+  box-shadow:0 12px 25px rgba(0,0,0,0.12);
+}
+
+.game-card h3{
+  font-size:15px;
+  margin-bottom:15px;
+  font-weight:600;
+}
+
+/* Vista previa */
+.game-preview{
+  background:#f1f5f9;
+  height:140px;
+  border-radius:12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+/* Botón jugar más elegante */
+.play-btn{
+  background:#22c55e;
+  color:white;
+  border:none;
+  padding:8px 18px;
+  border-radius:8px;
+  font-weight:600;
+  cursor:pointer;
+  transition:.25s;
+}
+
+.play-btn:hover{
+  background:#6d28d9;
+  transform:scale(1.05);
+}
+
+/* Bloqueado más sutil */
+.locked{
+  opacity:0.55;
+}
+
+.locked-btn{
+  background:#cbd5e1;
+  cursor:not-allowed;
+  color:#475569;
+}
+
+/* =========================
+   MODO JUEGO
+=========================*/
+#gameMode{
+  position:fixed;
+  inset:0;
+  background:#000;
+  display:none;
+  flex-direction:column;
+  z-index:9999;
+}
+
+.game-bar{
+  background:#0f172a;
+  color:white;
+  padding:12px 20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.game-bar button{
+  background:#22c55e;
+  border:none;
+  padding:6px 14px;
+  border-radius:6px;
+  cursor:pointer;
+}
+
+#gameFrame{
+  flex:1;
+  border:none;
+}
+
+/* =========================
+   PREMIUM ACTIVADO (MORADO PASTEL)
+=========================*/
+.premium-active{
+  background:#f3e8ff; /* morado pastel suave */
+  border:2px solid #d8b4fe;
+  box-shadow:0 8px 20px rgba(168,85,247,0.15);
+}
+
+.premium-active h3{
+  color:#6b21a8;
+}
+
+/* =========================
+   TARJETA DE PROGRESIÓN
+   Diseño limpio, elegante y moderno
+=========================*/
+.upgrade-card{
+
+  /* Separación superior e inferior */
+  margin:60px auto;
+
+  /* Ancho máximo controlado */
+  max-width:500px;
+
+  /* Fondo morado pastel profesional */
+  background:linear-gradient(135deg,#ede9fe,#f5f3ff);
+
+  /* Espaciado interno */
+  padding:30px;
+
+  /* Bordes redondeados modernos */
+  border-radius:18px;
+
+  /* Centrar texto */
+  text-align:center;
+
+  /* Sombra suave tipo plataforma premium */
+  box-shadow:0 10px 25px rgba(124,58,237,0.15);
+
+  /* Transición suave al hacer hover */
+  transition:.3s ease;
+}
+
+/* Efecto ligero al pasar el mouse */
+.upgrade-card:hover{
+  transform:translateY(-5px);
+  box-shadow:0 15px 35px rgba(124,58,237,0.2);
+}
+
+/* Título */
+.upgrade-card h3{
+  color:#6b21a8; /* morado elegante */
+  margin-bottom:10px;
+  font-weight:600;
+}
+
+/* Texto descriptivo */
+.upgrade-card p{
+  color:#475569;
+  margin-bottom:20px;
+  font-size:15px;
+}
+
+/* Botón */
+.upgrade-btn{
+
+  /* Morado principal */
+  background:#6d28d9;
+
+  color:white;
+  border:none;
+
+  padding:10px 22px;
+  border-radius:10px;
+
+  font-weight:600;
+  cursor:pointer;
+
+  transition:.3s ease;
+}
+
+/* Hover del botón */
+.upgrade-btn:hover{
+  background:#4f46e5;
+  transform:scale(1.05);
+}
+
 </style>
 </head>
 
 <body>
 
-<div class="header-gold">
-  <h1>¡Aprende Inglés Jugando!</h1>
-  <p>Explora estos juegos interactivos y mejora tu inglés de manera divertida.</p>
-</div>
+<!-- =========================
+     HEADER SUPERIOR
+=========================-->
 
-<section>
-  <h2 style="margin-left:20px;">🎮 Juegos</h2>
-  <div class="carousel-wrapper">
-  <button class="arrow left" onclick="scrollCarousel(-1)">❮</button>
-  
-  <div class="carousel" id="carousel"></div>
-  
-  <button class="arrow right" onclick="scrollCarousel(1)">❯</button>
-</div>
-</section>
+<div class="header-container">
+  <h1>🎮 Mete la Clave Aquí para Acceder al Círculo Premium</h1>
+  <p>Aprende inglés jugando de forma divertida y profesional.</p>
 
-<div class="elite-container">
-  <button class="elite-btn">🔓 DESBLOQUEAR</button>
+  <button class="main-btn" onclick="togglePremium()">
+    🔓 Activar Juegos Bloqueados
+  </button>
 
   <div class="elite-card" id="eliteCard">
-    <h3>🔒 Acceso Premium</h3>
-    <p>Ingresa tu clave:</p>
-    <input type="password" id="eliteKey" placeholder="Clave">
-    <br><br>
-    <button onclick="unlockPremium()">Entrar</button>
+    <h3>🔐 Acceso Premium</h3>
+    <input type="password" id="eliteKey" placeholder="Ingresa tu clave">
+    <br>
+    <button class="main-btn" onclick="unlockPremium()">Entrar</button>
   </div>
 </div>
 
-<!-- MODO JUEGO FULLSCREEN -->
+<!-- =========================
+     SECCIÓN JUEGOS
+=========================-->
+<section>
+  <h2>🎯 Juegos Disponibles</h2>
+  <div class="carousel-wrapper">
+    <button class="arrow left" onclick="scrollCarousel(-1)">❮</button>
+    <div class="carousel" id="carousel"></div>
+    <button class="arrow right" onclick="scrollCarousel(1)">❯</button>
+  </div>
+</section>
+
+<!-- =========================
+     TARJETA DE PROGRESIÓN
+     Motiva al alumno a continuar al siguiente módulo
+=========================-->
+<div class="upgrade-card">
+
+  <!-- Título motivacional -->
+  <h3>🏆 ¿Listo para más desafíos?</h3>
+
+  <!-- Texto descriptivo -->
+  <p>
+    En el siguiente módulo te esperan nuevos juegos y la Liga Bronce.
+  </p>
+
+  <!-- =========================
+     BOTÓN PARA IR A GITHUB
+========================= -->
+<button id="githubBtn">
+  🔍 Descubrir Siguiente Nivel
+</button>
+
+<!-- =========================
+     MODO JUEGO
+=========================-->
 <div id="gameMode">
   <div class="game-bar">
     <button onclick="cerrarJuego()">⬅ Regresar</button>
@@ -275,159 +406,172 @@ iframe {
 
 <script>
 
-/* =========================
-   LISTA FREE
-=========================*/
+/* =====================================================
+   LISTA FREE CON TÍTULOS
+=====================================================*/
 const juegosFree = [
-  "https://wordwall.net/es/embed/d9078126bdff4861a335e622b1996df4?themeId=43&templateId=3&fontStackId=0",
-  "https://wordwall.net/es/embed/35e33864fc9b413bb76a06c48b6c9cb6?themeId=1&templateId=3&fontStackId=0",
-  "https://wordwall.net/es/embed/c95e9c0711e74ffca4b6279abd561d26?themeId=1&templateId=5&fontStackId=0",
-  "https://wordwall.net/es/embed/b9c432a42009496fa2a5ea64e0549707?themeId=46&templateId=48&fontStackId=0"
+{
+  titulo: "🧠 Vocabulario Básico",
+  link: "https://wordwall.net/es/embed/d9078126bdff4861a335e622b1996df4?themeId=43&templateId=3&fontStackId=0"
+},
+{
+  titulo: "📚 Verbos en Presente",
+  link: "https://wordwall.net/es/embed/35e33864fc9b413bb76a06c48b6c9cb6?themeId=1&templateId=3&fontStackId=0"
+},
+{
+  titulo: "🎯 Preguntas y Respuestas",
+  link: "https://wordwall.net/es/embed/c95e9c0711e74ffca4b6279abd561d26?themeId=1&templateId=5&fontStackId=0"
+},
+{
+  titulo: "🚀 Frases Comunes",
+  link: "https://wordwall.net/es/embed/b9c432a42009496fa2a5ea64e0549707?themeId=46&templateId=48&fontStackId=0"
+}
 ];
 
-/* =========================
-   LISTA PREMIUM
-=========================*/
+/* =====================================================
+   LISTA PREMIUM CON TÍTULOS
+=====================================================*/
 const juegosPremium = [
-  "https://wordwall.net/es/embed/26b4121366e243d5b1703165c627ceab?themeId=50&templateId=3&fontStackId=0",
-  "https://wordwall.net/es/embed/fa84d1f4029b4644ba2b1f1141e1ca1a?themeId=1&templateId=3&fontStackId=0",
-  "https://wordwall.net/es/embed/6e6176f2438d490ba6e47261fe1aaa22?themeId=55&templateId=10&fontStackId=0"
+{
+  titulo: "🔥 Dominio de Verbos Avanzados",
+  link: "https://wordwall.net/es/embed/26b4121366e243d5b1703165c627ceab?themeId=50&templateId=3&fontStackId=0"
+},
+{
+  titulo: "🧩 Construcción de Oraciones Pro",
+  link: "https://wordwall.net/es/embed/fa84d1f4029b4644ba2b1f1141e1ca1a?themeId=1&templateId=3&fontStackId=0"
+},
+{
+  titulo: "🚀 Reto de Fluidez Total",
+  link: "https://wordwall.net/es/embed/6e6176f2438d490ba6e47261fe1aaa22?themeId=55&templateId=10&fontStackId=0"
+}
 ];
 
-document.addEventListener("DOMContentLoaded", () => {
+/* =====================================================
+   CREAR TARJETAS AL CARGAR LA PÁGINA
+=====================================================*/
+document.addEventListener("DOMContentLoaded",()=>{
 
   const carousel = document.getElementById("carousel");
 
-  /* =========================
-     CREAR TARJETAS
-  =========================*/
-  function crearCard(titulo, link, bloqueado = false) {
+  function crearCard(titulo, link, bloqueado=false){
 
     const card = document.createElement("div");
     card.classList.add("game-card");
 
-    const buttonHTML = bloqueado
-      ? `<button class="play-btn locked-btn">🔒 Bloqueado</button>`
-      : `<button class="play-btn" onclick="openGame('${link}', '${titulo}')">▶ Jugar</button>`;
-
     card.innerHTML = `
       <h3>${titulo}</h3>
       <div class="game-preview">
-        ${buttonHTML}
+        ${
+          bloqueado
+          ? `<button class="play-btn locked-btn">🔒 Bloqueado</button>`
+          : `<button class="play-btn" onclick="openGame('${link}','${titulo}')">▶ Jugar</button>`
+        }
       </div>
     `;
 
-    if (bloqueado) card.classList.add("locked");
+    if(bloqueado) card.classList.add("locked");
 
     carousel.appendChild(card);
   }
 
-  /* GENERAR FREE */
-  juegosFree.forEach((link, index) => {
-    crearCard(`Juego Free ${index + 1}`, link);
+  // Crear juegos free
+  juegosFree.forEach((juego)=>{
+    crearCard(juego.titulo, juego.link);
   });
 
-  /* GENERAR PREMIUM */
-  juegosPremium.forEach((link, index) => {
-    crearCard(`Juego Premium ${index + 1}`, link, true);
-  });
-
-  /* MOSTRAR TARJETA PREMIUM */
-  document.querySelector('.elite-btn').addEventListener('click', () => {
-    const card = document.getElementById('eliteCard');
-    card.style.display = card.style.display === 'block' ? 'none' : 'block';
+  // Crear juegos premium bloqueados
+  juegosPremium.forEach((juego)=>{
+    crearCard(juego.titulo, juego.link, true);
   });
 
 });
 
-/* =========================
-   ABRIR JUEGO FULLSCREEN
-=========================*/
-function openGame(url, titulo) {
-
-  // Ocultar contenido principal
-  document.querySelector(".header-gold").style.display = "none";
-  document.querySelector("section").style.display = "none";
-  document.querySelector(".elite-container").style.display = "none";
-
-  // Mostrar modo juego
-  const gameMode = document.getElementById("gameMode");
-  const frame = document.getElementById("gameFrame");
-
+/* =====================================================
+   ABRIR JUEGO EN MODAL
+=====================================================*/
+function openGame(url,titulo){
+  document.getElementById("gameFrame").src = url;
   document.getElementById("gameTitle").innerText = titulo;
-
-  frame.src = url;
-  gameMode.style.display = "flex";
-
-  // Bloquear scroll
+  document.getElementById("gameMode").style.display = "flex";
   document.body.style.overflow = "hidden";
 }
 
-/* =========================
+/* =====================================================
    CERRAR JUEGO
-=========================*/
-function cerrarJuego() {
-
-  const gameMode = document.getElementById("gameMode");
-  const frame = document.getElementById("gameFrame");
-
-  // Eliminar juego (corta audio)
-  frame.src = "";
-
-  // Ocultar modo juego
-  gameMode.style.display = "none";
-
-  // Restaurar contenido principal
-  document.querySelector(".header-gold").style.display = "";
-  document.querySelector("section").style.display = "";
-  document.querySelector(".elite-container").style.display = "";
-
-  // Restaurar scroll
+=====================================================*/
+function cerrarJuego(){
+  document.getElementById("gameFrame").src = "";
+  document.getElementById("gameMode").style.display = "none";
   document.body.style.overflow = "";
 }
 
-/* =========================
-   DESBLOQUEAR PREMIUM
-=========================*/
-function unlockPremium() {
+/* =====================================================
+   MOSTRAR / OCULTAR TARJETA PREMIUM (TOGGLE)
+=====================================================*/
+function togglePremium(){
+
+  const card = document.getElementById("eliteCard");
+
+  if(card.style.display === "block"){
+    card.style.display = "none";
+  }else{
+    card.style.display = "block";
+  }
+
+}
+
+/* =====================================================
+   DESBLOQUEAR PREMIUM SIN RECARGAR
+=====================================================*/
+function unlockPremium(){
 
   const key = document.getElementById("eliteKey").value.trim();
 
-  if (key === "552455") {
+  if(key === "552455"){
 
-    document.querySelectorAll(".game-card.locked").forEach((card, index) => {
+    // Buscar tarjetas bloqueadas
+    document.querySelectorAll(".game-card.locked").forEach((card, index)=>{
 
-      const link = juegosPremium[index];
-      const titulo = `Juego Premium ${index + 1}`;
+  const juego = juegosPremium[index];
 
-      card.classList.remove("locked");
+  card.classList.remove("locked");
 
-      card.querySelector(".play-btn").outerHTML =
-        `<button class="play-btn" onclick="openGame('${link}', '${titulo}')">▶ Jugar</button>`;
-    });
+  // 🔥 Agregar estilo premium pastel
+  card.classList.add("premium-active");
 
-    alert("¡Premium activado! 🎉");
+  card.querySelector(".play-btn").outerHTML =
+    `<button class="play-btn" onclick="openGame('${juego.link}','${juego.titulo}')">▶ Jugar</button>`;
+});
+
+    // Ocultar tarjeta después de entrar
+    document.getElementById("eliteCard").style.display = "none";
+
+    alert("¡Juegos desbloqueados! 🎉");
 
   } else {
-    alert("Clave incorrecta.");
+    alert("Clave incorrecta ❌");
   }
+
 }
 
-/* =========================
+/* =====================================================
    SCROLL CARRUSEL
-=========================*/
-function scrollCarousel(direction) {
-
-  const carousel = document.getElementById("carousel");
-  const scrollAmount = 320;
-
-  carousel.scrollBy({
-    left: direction * scrollAmount,
+=====================================================*/
+function scrollCarousel(direction){
+  document.getElementById("carousel").scrollBy({
+    left: direction * 280,
     behavior: "smooth"
   });
 }
 
-</script>
+/* =========================
+   REDIRECCIÓN A GITHUB
+   Esta función abre la URL de GitHub en una nueva pestaña
+   cuando el usuario hace clic en el botón.
+=========================*/
+document.getElementById("githubBtn").addEventListener("click", function() {
+  // Cambia esta URL por tu repositorio real
+  window.location.href = "https://github.com/TU-USUARIO/TU-REPOSITORIO";
+});
 
-</body>
-</html>
+</script>
